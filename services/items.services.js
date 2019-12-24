@@ -2,7 +2,7 @@ const url = require('../config');
 const http = require('axios');
 
 const url_query = `${url.config.api_url}/sites/MLA/search`;
-const url_id = `${url.config.api_url}/items/`;
+const url_id = `${url.config.api_url}/items`;
 
 class ItemsServices {
   async getProducts({ query }) {
@@ -11,8 +11,15 @@ class ItemsServices {
   }
 
   async getProduct({ id }) {
-    const product = await http.get(`${url_id}/${id}`);
-    return product || {};
+    const product = http.get(`${url_id}/${id}`);
+    const product_details = http.get(`${url_id}/${id}/description`);
+    return Promise.all([product, product_details]).then(details => {
+      return details;
+    });
+    // return {
+    //   product: product,
+    //   product_details: product_details
+    // };
   }
 }
 

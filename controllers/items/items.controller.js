@@ -58,6 +58,35 @@ class ItemsController {
     }
   }
 
+  async getProductByIdController(req, res, next) {
+    try {
+      const prod = await itemsServices.getProduct(req);
+      const product = prod[0];
+      const details = prod[1];
+      res.status(200).json({
+        author: {
+          name: 'Julio',
+          lastname: 'Avila'
+        },
+        item: {
+          id: product.data.id,
+          title: product.data.title,
+          price: {
+            currency: product.data.currency_id,
+            amount: parseInt(product.data.price),
+            decimals: this.getdecimals(product.data.price)
+          },
+          picture: product.data.thumbnail,
+          condition: product.data.condition,
+          free_shipping: product.data.shipping.free_shipping,
+          sold_quantity: product.data.sold_quantity,
+          description: details.data.plain_text
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new ItemsController();
