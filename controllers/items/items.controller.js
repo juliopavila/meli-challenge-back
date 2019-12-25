@@ -51,7 +51,7 @@ class ItemsController {
           lastname: 'Avila'
         },
         categories: [this.filterByCategory(products.data)],
-        items: [this.filterItems(products.data.results)]
+        items: this.filterItems(products.data.results)
       });
     } catch (error) {
       next(error);
