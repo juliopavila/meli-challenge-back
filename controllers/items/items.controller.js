@@ -27,6 +27,7 @@ class ItemsController {
         },
         picture: i.thumbnail,
         condition: i.condition,
+        address: i.address.state_name,
         free_shipping: i.shipping.free_shipping
       };
       return item_list;
