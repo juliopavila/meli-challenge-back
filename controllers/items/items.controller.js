@@ -1,6 +1,10 @@
 const itemsServices = require('../../services/items.services');
 
 class ItemsController {
+  /**
+   * Metodo para filtar arreglo por categoria
+   * @param {*} filter
+   */
   filterByCategory(filter) {
     const category = filter.available_filters.find(cat => cat.id == 'category');
     if (category == undefined) {
@@ -15,6 +19,10 @@ class ItemsController {
     }
   }
 
+  /**
+   * Metodo para filtrar los items
+   * @param {*} items
+   */
   filterItems(items) {
     return items.map(i => {
       const item_list = {
@@ -34,6 +42,11 @@ class ItemsController {
     });
   }
 
+  /**
+   * Metodo para obtener los numbero decimales
+   * de un string.
+   * @param {*} number
+   */
   getdecimals(number) {
     const decimal = parseInt((number + '').split('.')[1]);
     if (isNaN(decimal)) {
@@ -43,6 +56,13 @@ class ItemsController {
     }
   }
 
+  /**
+   * Metodo para hacer la llamada al servicio de los productos
+   * y manejar los datos que seran retornados al cli
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
   async getProductsController(req, res, next) {
     try {
       const products = await itemsServices.getProducts(req);
@@ -59,6 +79,13 @@ class ItemsController {
     }
   }
 
+  /**
+   * Metodo para hacer la llamada al servicio de un producto
+   * y manejar los datos que seran retornados al cli
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
   async getProductByIdController(req, res, next) {
     try {
       const prod = await itemsServices.getProduct(req);

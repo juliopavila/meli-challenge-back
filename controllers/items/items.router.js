@@ -3,6 +3,10 @@ const controller = require('./items.controller');
 
 let itemsRouter = express.Router();
 
+/**
+ * Metodos para manejar las rutas
+ */
+
 itemsRouter.get('/items', async (req, res, next) => {
   const { query } = req.query;
   controller.getProductsController({ query }, res, next);
